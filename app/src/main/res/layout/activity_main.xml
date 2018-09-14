@@ -1,18 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.wugj.picture.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/pic1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="拍照选择照片-storage" />
+
+            <Button
+                android:id="@+id/pic2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="拍照选择照片-相册" />
+
+            <Button
+                android:id="@+id/pic3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="相册单选照片" />
+
+            <Button
+                android:id="@+id/pic4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="相册多选照片" />
+
+            <Button
+                android:id="@+id/pic5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="屏幕截图" />
+
+            <Button
+                android:id="@+id/pic6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="照片选择截图（修改原图）" />
+
+            <Button
+                android:id="@+id/pic7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="照片选择截图（不修改原图）" />
+
+            <Button
+                android:id="@+id/pic8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="照片压缩-质量" />
+
+            <Button
+                android:id="@+id/pic9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="照片压缩-比例" />
+
+            <Button
+                android:id="@+id/pic10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="照片转pdf" />
+
+            <Button
+                android:id="@+id/pic11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Picasso网络照片" />
+
+            <Button
+                android:id="@+id/pic12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="照片合成" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
