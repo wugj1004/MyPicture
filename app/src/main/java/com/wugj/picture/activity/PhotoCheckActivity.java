@@ -8,7 +8,7 @@ import com.wugj.picture.R;
 /**
  * 照片多选
  */
-public class PhotoCheckPicActivity extends AppCompatActivity {
+public class PhotoCheckActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

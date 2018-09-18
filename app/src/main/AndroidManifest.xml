@@ -19,6 +19,8 @@
         </activity>
 
         <activity android:name=".activity.CameraPicActivity"/>
+        <activity android:name=".activity.PhotoSelectActivity"/>
+        <activity android:name=".activity.PhotoCheckActivity"/>
 
         <!-- Android 7.0 照片、下载-->
         <!--android:authorities="对应的包名.fileprovider"-->

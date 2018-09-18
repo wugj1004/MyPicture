@@ -149,20 +149,19 @@ public class CameraPicActivity extends AppCompatActivity implements View.OnClick
      */
     private void savePhoto2Gallery(@NonNull int[] grantResults){
         //文件路径是公共的DCIM目录下的/camerademo目录
-        String storagePath = Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                .getAbsolutePath() + File.separator + "camera";
+        String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "camera";
         File storageFile = new File(storagePath);
 
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //内部存储存-相册存储照片
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                //创建文件夹
                 if (!storageFile.exists()) {
                     storageFile.mkdirs();
                 }
 
+                //创建文件
                 String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
                 try {
                     picFile = File.createTempFile(fileName, ".jpg", storageFile);
                 } catch (IOException e) {
@@ -182,10 +181,9 @@ public class CameraPicActivity extends AppCompatActivity implements View.OnClick
      */
     private void savePhoto2File(@NonNull int[] grantResults){
         //文件存储到<package_name>包名下
-        String directoryPath;
-        String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            String directoryPath;
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ) {//判断SD卡是否可用
                 //外部存储
                 directoryPath =instance.getExternalFilesDir("camera").getAbsolutePath() ;
@@ -193,12 +191,13 @@ public class CameraPicActivity extends AppCompatActivity implements View.OnClick
                 //内部存储
                 directoryPath=instance.getFilesDir()+File.separator+"camera";
             }
-
+            //创建文件夹
             File file = new File(directoryPath);
             if (!file.exists()) {
                 file.mkdirs();
             }
-
+            //创建文件
+            String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             try {
                 picFile = File.createTempFile(fileName, ".jpg", file);
             } catch (IOException e) {
