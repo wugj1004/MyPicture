@@ -26,20 +26,7 @@ public class MultiImageSelector {
     private ArrayList<String> mOriginData;
     private static MultiImageSelector sSelector;
 
-    @Deprecated
-    private MultiImageSelector(Context context){
-
-    }
-
     private MultiImageSelector(){}
-
-    @Deprecated
-    public static MultiImageSelector create(Context context){
-        if(sSelector == null){
-            sSelector = new MultiImageSelector(context);
-        }
-        return sSelector;
-    }
 
     public static MultiImageSelector create(){
         if(sSelector == null){

@@ -12,12 +12,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.wgj.multiImage.MultiImageSelector;
-import com.wugj.picture.MainActivity;
 import com.wugj.picture.R;
 
 import java.io.File;
@@ -66,7 +64,7 @@ public class PhotoCheckActivity extends AppCompatActivity {
                     REQUEST_STORAGE_READ_ACCESS_PERMISSION);
         }else {
 
-            MultiImageSelector selector = MultiImageSelector.create(instance);
+            MultiImageSelector selector = MultiImageSelector.create();
             selector.showCamera(true);
             selector.count(2);
             selector.multi();
