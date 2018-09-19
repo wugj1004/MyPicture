@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.wugj.picture.activity.CameraPicActivity;
+import com.wugj.picture.activity.PhotoCheckActivity;
 import com.wugj.picture.activity.PhotoSelectActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.pic1).setOnClickListener(this);
         findViewById(R.id.pic3).setOnClickListener(this);
+        findViewById(R.id.pic4).setOnClickListener(this);
 
     }
 
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.pic3:
                 intent.setClass(instance, PhotoSelectActivity.class);
+
+                break;
+            case R.id.pic4:
+                intent.setClass(instance, PhotoCheckActivity.class);
 
                 break;
         }
