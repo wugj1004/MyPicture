@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/pic5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="滚屏截图" />
+    <Button
+        android:id="@+id/pic6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="照片选择截图（修改原图）" />
+
+    <Button
+        android:id="@+id/pic7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="照片选择截图（不修改原图）" />
+
+</android.support.constraint.ConstraintLayout>

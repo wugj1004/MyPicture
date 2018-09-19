@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -35,34 +35,17 @@
                 android:text="相册多选照片" />
 
             <Button
-                android:id="@+id/pic5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="屏幕截图" />
-
-            <Button
                 android:id="@+id/pic6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="照片选择截图（修改原图）" />
-
-            <Button
-                android:id="@+id/pic7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="照片选择截图（不修改原图）" />
+                android:text="照片裁剪" />
 
             <Button
                 android:id="@+id/pic8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="照片压缩-质量" />
+                android:text="照片压缩" />
 
-            <Button
-                android:id="@+id/pic9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="照片压缩-比例" />
 
             <Button
                 android:id="@+id/pic10"

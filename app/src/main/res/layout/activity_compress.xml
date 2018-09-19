@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/pic8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="照片压缩-质量" />
+
+    <Button
+        android:id="@+id/pic9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="照片压缩-比例" />
+    
+</android.support.constraint.ConstraintLayout>
