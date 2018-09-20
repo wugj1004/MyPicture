@@ -32,6 +32,7 @@ public class CropActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.pic5).setOnClickListener(this);
         findViewById(R.id.pic6).setOnClickListener(this);
         findViewById(R.id.pic7).setOnClickListener(this);
+        findViewById(R.id.pic8).setOnClickListener(this);
 
         iv1 = findViewById(R.id.iv1);
         iv2 = findViewById(R.id.iv2);
