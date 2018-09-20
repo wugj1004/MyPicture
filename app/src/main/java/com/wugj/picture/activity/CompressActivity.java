@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.wugj.picture.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -100,8 +102,8 @@ public class CompressActivity  extends AppCompatActivity implements View.OnClick
 
 
         String imagePath = Uri2Path.getImageAbsolutePath(this,selectedUri);
-//        Bitmap bitmap = compressImageFromFile(imagePath,2);
-        Bitmap bitmap = compressImageFromFile(imagePath,800,480);
+//        Bitmap bitmap = compressImage(imagePath,2);
+        Bitmap bitmap = compressImage(imagePath,800,480);
         //显示压缩图
         iv3.setImageBitmap(bitmap);
 
@@ -116,7 +118,7 @@ public class CompressActivity  extends AppCompatActivity implements View.OnClick
      * @param inSampleSize
      * @return
      */
-    private Bitmap compressImageFromFile(String imagePath,int inSampleSize){
+    private Bitmap compressImage(String imagePath,int inSampleSize){
         System.gc();
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPurgeable = true;
@@ -133,7 +135,7 @@ public class CompressActivity  extends AppCompatActivity implements View.OnClick
      * @param ww
      * @return
      */
-    private Bitmap compressImageFromFile(String srcPath, float hh, float ww) {
+    private Bitmap compressImage(String srcPath, float hh, float ww) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;//只读边,不读内容
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
@@ -179,6 +181,19 @@ public class CompressActivity  extends AppCompatActivity implements View.OnClick
 
 
         //压缩图片
+        Bitmap bitmap = qualityCompress2Storage(selectedUri);
+//        Bitmap bitmap = qualityCompress2File(selectedUri);
+        iv4.setImageBitmap(bitmap);
+    }
+
+
+    /**
+     * 质量压缩-内存中流文件变小
+     * @param selectedUri
+     * @return
+     */
+    private Bitmap qualityCompress2Storage(Uri selectedUri){
+        //压缩图片
         Bitmap bitmap = null;
         try {
             bitmap = getBitmap(getContentResolver(),selectedUri);
@@ -190,25 +205,103 @@ public class CompressActivity  extends AppCompatActivity implements View.OnClick
         quality的取值范围为[0,100]，值越小，经过压缩后图片失真越严重，当然图片文件也会越小。（PNG格式的图片会忽略这个值的设定）
         stream指定压缩的图片输出的地方，比如某文件。*/
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int quality = 80;
+        int quality = 100;
         bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+
+
+        byte[] bytes = baos.toByteArray();
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Log.i("CompressActivity", " 111 zx 原始图片大小图片大小：" + bitmap.getByteCount()
+                + " 宽度：" + bitmap.getWidth() + " 高度：" + bitmap.getHeight()
+                + " bytes.length= " + (bytes.length / 1024) + "KB"
+                + " quality=" + quality);
+
+
+
         while (baos.toByteArray().length / 1024 > 100) {
             baos.reset();
             quality -= 10;
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         }
 
+        byte[] byteCompress = baos.toByteArray();
+        bitmap = BitmapFactory.decodeByteArray(byteCompress, 0, byteCompress.length);
+        Log.i("CompressActivity", " 111 zx 压缩后图片大小：" + bitmap.getByteCount()
+                + " 宽度：" + bitmap.getWidth() + " 高度：" + bitmap.getHeight()
+                + " bytes.length= " + (byteCompress.length / 1024) + "KB"
+                + " quality=" + quality);
+
+
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
         Bitmap bitmap1 = BitmapFactory.decodeStream(isBm, null, null);
 
-
-        iv4.setImageBitmap(bitmap1);
-
-        Toast.makeText(this, "原图大小"+bit.getHeight()+"...."+bit.getWidth()+"...."+bit.getByteCount()/1024/1024+"M"+"\n"+
-                "压缩图大小"+bitmap1.getHeight()+"...."+bitmap1.getWidth()+"...."+bitmap1.getByteCount()/1024/1024+"M", Toast.LENGTH_SHORT).show();
+        return bitmap1;
     }
 
+    /**
+     * 质量压缩-压缩后保存在本地file中
+     * @param selectedUri
+     * @return
+     */
+    private Bitmap qualityCompress2File(Uri selectedUri){
+        //压缩图片
+        Bitmap bitmap = null;
+        try {
+            bitmap = getBitmap(getContentResolver(),selectedUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        /*format是压缩后的图片的格式，可取值：Bitmap.CompressFormat .JPEG、~.PNG、~.WEBP。
+        quality的取值范围为[0,100]，值越小，经过压缩后图片失真越严重，当然图片文件也会越小。（PNG格式的图片会忽略这个值的设定）
+        stream指定压缩的图片输出的地方，比如某文件。*/
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int quality = 100;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+
+        byte[] bytes = baos.toByteArray();
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Log.e("CompressActivity", " 111 zx 原始图片大小图片大小：" + bitmap.getByteCount()
+                + " 宽度：" + bitmap.getWidth() + " 高度：" + bitmap.getHeight()
+                + " bytes.length= " + (bytes.length / 1024) + "KB"
+                + " quality=" + quality);
+
+
+        //保存本地file保存地址
+        String savePath = Environment.getExternalStorageDirectory()+"/test_scaled100.jpeg";
+        FileOutputStream outputStream = null;
+        try {
+            //循环压缩
+            while (baos.toByteArray().length / 1024 > 100) {
+                baos.reset();
+                quality -= 10;
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+            }
+            //文件压缩后保存在file中
+            File file = new File(savePath);
+            outputStream = new FileOutputStream(file);
+            outputStream.write(baos.toByteArray());
+            //压缩后打印压缩文件所占内存
+            Log.e("CompressActivity", " 111 zx 压缩后图片大小：" + bitmap.getByteCount()
+                    + " 宽度：" + bitmap.getWidth() + " 高度：" + bitmap.getHeight()
+                    + " bytes.length= " + (file.length() / 1024) + "KB"
+                    + " quality=" + quality);
+
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if(outputStream != null){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bitmap;
+    }
 
     /**----------------------------质量压缩---------结束----------------------------**/
 
